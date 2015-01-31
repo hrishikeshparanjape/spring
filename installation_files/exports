@@ -1,0 +1,6 @@
+export db_host=localhost
+export db_port=3306
+export db_name=spring
+export db_user=rishi
+export db_password=201Manzanita
+

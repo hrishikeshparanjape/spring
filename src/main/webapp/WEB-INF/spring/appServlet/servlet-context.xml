@@ -27,11 +27,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<beans:bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	</beans:bean>
+
 	<context:component-scan base-package="com.rishi.app" />
 
-
-
-	<!--  -->
+	<!-- -->
 	<beans:bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
@@ -53,9 +55,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/spring" />
-		<beans:property name="username" value="rishi" />
-		<beans:property name="password" value="201Manzanita" />
+			value="jdbc:mysql://${db_host}:${db_port}/${db_name}" />
+		<beans:property name="username" value="${db_user}" />
+		<beans:property name="password" value="${db_password}" />
 	</beans:bean>
 
 	<beans:bean id="transactionManager"
@@ -63,31 +65,34 @@
 		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
 	</beans:bean>
 	<tx:annotation-driven />
-	<!--  -->
-
+	<!-- -->
 
 	<beans:bean id="mySuccessHandler"
 		class="com.rishi.app.services.security.MySavedRequestAwareAuthenticationSuccessHandler" />
 	<beans:bean id="myFailureHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
 
-	<security:http  use-expressions="true" entry-point-ref="restAuthenticationEntryPoint">
-	<security:intercept-url pattern="/users/signup" access="permitAll" />
-	<security:intercept-url pattern="/notifications/**" access="permitAll" />
-		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-		<security:form-login authentication-success-handler-ref="mySuccessHandler"
+	<security:http use-expressions="true"
+		entry-point-ref="restAuthenticationEntryPoint">
+		<security:intercept-url pattern="/users/signup"
+			access="permitAll" />
+		<security:intercept-url pattern="/notifications/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/**"
+			access="hasRole('ROLE_USER')" />
+		<security:form-login
+			authentication-success-handler-ref="mySuccessHandler"
 			authentication-failure-handler-ref="myFailureHandler" />
 		<security:logout />
 	</security:http>
 
 	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider ref="customAuthenticationProvider" />
-		<!-- <security:authentication-provider>
-			<security:user-service>
-				<security:user name="temporary" password="temporary" authorities="ROLE_ADMIN" />
-				<security:user name="user" password="user" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider> -->
-	</security:authentication-manager>	
+		<security:authentication-provider
+			ref="customAuthenticationProvider" />
+		<!-- <security:authentication-provider> <security:user-service> <security:user 
+			name="temporary" password="temporary" authorities="ROLE_ADMIN" /> <security:user 
+			name="user" password="user" authorities="ROLE_USER" /> </security:user-service> 
+			</security:authentication-provider> -->
+	</security:authentication-manager>
 
 </beans:beans>
