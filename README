@@ -22,6 +22,9 @@ Example Request Payloads:
 2. Following will send email immediately:
 {“to”: “fake@example.com”,“to_name”: “Ms. Fake”,“from”: “noreply@uber.com”,“from_name”: “Uber”,“subject”: “A Message from Uber”,“body”: “<h1>Your Bill</h1><p>$10</p>”}
 
+For example,
+curl -H "Content-Type: application/json" -d '{"to":"hrishikeshp19@gmail.com", "to_name":"Rishi","from":"rishi@uber.com","from_name":"Uber","subject":"take home test","body":"<h1>Your Bill</h1><p>$10</p>"}' http://localhost:8080/notifications/email
+
 Installation instructions:
 
 1. Download/Clone this git repository. Path to this directory will be referred as {gitroot} from here on in.
