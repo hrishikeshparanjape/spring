@@ -75,7 +75,7 @@ public class NotificationService {
         if (defaultServiceName != null && !defaultServiceName.getValue().isEmpty()) {
             List<EmailService> ret = new ArrayList<EmailService>();
             for (EmailService emailService : emailServices) {
-                if (!emailService.getName().equals(defaultServiceName)) {
+                if (!emailService.getName().equals(defaultServiceName.getValue())) {
                     ret.add(emailService);
                 }
             }
@@ -95,6 +95,7 @@ public class NotificationService {
             email.setFromEmail(((EmailNotification) notification).getFromEmail());
             email.setFromName(((EmailNotification) notification).getFromName());
             email.setProvider(((EmailNotification) notification).getProvider());
+            email.setSendTime(((EmailNotification) notification).getSendTime());
             email.setCreateDate(Calendar.getInstance());
             email.setLastModified(Calendar.getInstance());
             emailNotifications.create(email);

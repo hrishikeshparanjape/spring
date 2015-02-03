@@ -1,5 +1,7 @@
 package com.rishi.app.models;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -7,6 +9,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @Entity
 public class EmailNotification extends Notification {
+    @Column
+    private Calendar sendTime;
+
 	@Column
 	private String provider;
 	
@@ -83,5 +88,13 @@ public class EmailNotification extends Notification {
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
+
+    public Calendar getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(Calendar sendTime) {
+        this.sendTime = sendTime;
+    }
 
 }

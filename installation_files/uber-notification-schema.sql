@@ -9,6 +9,7 @@ CREATE TABLE `EmailNotification` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `lastModified` datetime DEFAULT NULL,
+  `sendTime` datetime DEFAULT NULL,
   `body` varchar(255) DEFAULT NULL,
   `fromEmail` varchar(255) DEFAULT NULL,
   `fromName` varchar(255) DEFAULT NULL,

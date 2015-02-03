@@ -1,19 +1,27 @@
 package com.rishi.app.controllers.requests;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jsoup.Jsoup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rishi.app.models.EmailNotification;
 
 public class EmailNotificationRequest extends EmailNotification {
 	
+    private static final Logger log = LoggerFactory.getLogger(EmailNotificationRequest.class);
+    
 	private static final String EMAIL_PATTERN = 
 			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
 	private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+	
+	private String sendAt;
 
 	@JsonProperty("to_name")
 	public String getToName() {
@@ -55,6 +63,25 @@ public class EmailNotificationRequest extends EmailNotification {
 	public void setFromName(String fromName) {
 		super.setFromName(fromName);
 	}
+	
+	@JsonProperty("send_time")
+    public String getSendAt() {
+	    return this.sendAt;
+    }
+
+	@JsonProperty("send_time")
+    public void setSendAt(String sendAt) {
+	    this.sendAt=sendAt;
+	    
+	    try {
+	        Calendar cal  = Calendar.getInstance();
+            cal.setTime((new SimpleDateFormat("YYYY-MM-DD HH:MM:SS")).parse(sendAt));
+            super.setSendTime(cal);
+        } catch (ParseException e) {
+            log.warn("Unable to parse date string:",sendAt);
+        }
+    }
+	
 	
 	public boolean isValid () {
 		
