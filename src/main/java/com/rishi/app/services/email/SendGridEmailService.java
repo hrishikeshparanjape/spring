@@ -57,10 +57,10 @@ public class SendGridEmailService implements EmailService {
                 } else {
                     byte[] responseBody = new byte[1000];
                     response.getEntity().getContent().read(responseBody);
-                    log.error("Error sending email through Mandrill service:", new String(responseBody));
+                    log.info("Error sending email through Sendgrid service:", new String(responseBody));
                 }
             } catch (Exception ex) {
-                log.error("Error sending email through SendGrid service:", ex);
+                log.info("Error sending email through SendGrid service:", ex);
             } finally {
                 httpClient.getConnectionManager().shutdown();
             }

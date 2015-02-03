@@ -52,7 +52,7 @@ public class NotificationService {
         }
 
         if (!success) {
-            log.error("Failed to send notification", email);
+            log.info("Failed to send notification", email);
         }
     }
 

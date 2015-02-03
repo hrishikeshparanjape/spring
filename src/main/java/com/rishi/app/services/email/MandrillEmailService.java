@@ -56,7 +56,7 @@ public class MandrillEmailService implements EmailService {
                     ret = true;
                 }
             } catch (Exception ex) {
-                log.error("Error sending email through Mandrill service:", ex);
+                log.info("Error sending email through Mandrill service:", ex);
             } finally {
                 httpClient.getConnectionManager().shutdown();
             }

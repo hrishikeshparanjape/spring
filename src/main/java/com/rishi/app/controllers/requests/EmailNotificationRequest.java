@@ -78,7 +78,7 @@ public class EmailNotificationRequest extends EmailNotification {
             cal.setTime((new SimpleDateFormat("YYYY-MM-DD HH:MM:SS")).parse(sendAt));
             super.setSendTime(cal);
         } catch (ParseException e) {
-            log.warn("Unable to parse date string:",sendAt);
+            log.info("Unable to parse date string:",sendAt);
         }
     }
 	
